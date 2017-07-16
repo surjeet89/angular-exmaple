@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+
+<h1 ng-mousemove="count = count + 1">Mouse Over Me!</h1>
+
+<h2>{{ count }}</h2>
+
+</div>
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.count = 0;
+});
+</script> 
+	<br>
+    ng-blur<br>
+    ng-change<br>
+    ng-click<br>
+    ng-copy<br>
+    ng-cut<br>
+    ng-dblclick<br>
+    ng-focus<br>
+    ng-keydown<br>
+    ng-keypress<br>
+    ng-keyup<br>
+    ng-mousedown<br>
+    ng-mouseenter<br>
+    ng-mouseleave<br>
+    ng-mousemove<br>
+    ng-mouseover<br>
+    ng-mouseup<br>
+    ng-paste<br>
+
+</body>
+</html>

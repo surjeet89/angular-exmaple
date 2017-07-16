@@ -1,0 +1,59 @@
+<script>
+// cookies
+
+ngCookies and depedency is $cookies
+
+$cookies.put(key,value);
+$cookies.get(key);
+$cookies.remove(key);
+
+// session
+
+Required module  : ngStorage
+Dependency : $sessionStorage
+
+
+var app.module('myApp',['ngStorage']);
+
+app.controller('mycontroller',function($scope,$sessionStorage){
+
+	$scope.add = function(){	
+		$sessionStorage.name = 'Ranjit singh';
+		
+		console.log('Data store in $sessionStorage');
+	}
+	
+	$scope.get = function(){
+		
+	console.log($sessionStorage.name );
+	}
+});
+
+
+Required module  : ngStorage
+Dependency : $sessionStorage
+
+// localstorage
+var app.module('myApp',['ngStorage']);
+
+app.controller('mycontroller',function($scope,$localStorage){
+
+	$scope.add = function(){	
+		$localStorage.name = 'Ranjit singh';
+		
+		console.log('Data store in $localStorage');
+	}
+	
+	$scope.get = function(){
+		
+	console.log($localStorage.name );
+	}
+});
+</script>
+
+<a href="#null" ng-click="add()">Add</a>
+<a href="#null" ng-click="get()">get</a>
+
+<p>Note  :  we need to call angular storage lib </p>
+
+

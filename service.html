@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+<p>The url of this page is:</p>
+<h3>Value Service : {{valexmp1}}</h3>
+<h3>contsant Service : {{valexmp2}}</h3>
+<h3>Service Factory : {{valexmp3}}</h3>
+<h3>Custome Service : {{valexmp4}}</h3>
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+
+app.value('myvalueservice','This is myvalue service');
+app.constant('myconstantservice','This is constant service');
+
+app.factory('myfactory',function(){
+	
+	var obj = {};
+	
+	obj.getname = function(){
+		return 'myfactory';
+	}
+	
+	return obj;
+});
+
+app.service("customeservice",function(){
+	this.getname = function(){
+		return 'my custome service';
+	}
+});
+
+app.controller('myCtrl', function($scope, myvalueservice, myconstantservice,myfactory,customeservice) {
+    $scope.valexmp1 = myvalueservice;
+    $scope.valexmp2 = myconstantservice;
+    $scope.valexmp3 = myfactory.getname();
+    $scope.valexmp4 = customeservice.getname();
+});
+</script>
+
+</body>
+</html>

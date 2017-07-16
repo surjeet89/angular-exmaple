@@ -1,0 +1,438 @@
+<?php
+// Include global file
+ include_once("../includes/global.php");
+	
+ ?>
+<!doctype html>
+	<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="<?php echo $site_title; ?>">
+		<meta name="author" content="Graduate America">
+		<title>Dashboard | <?php echo $site_title; ?></title>
+		<link rel="shortcut icon" href="https://graduateamerica.org/ga_assets/img/favicon/favicon.png">
+		<link rel="apple-touch-icon" href="https://graduateamerica.org/ga_assets/img/favicon/apple-touch-icon.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="https://graduateamerica.org/ga_assets/img/favicon/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="https://graduateamerica.org/ga_assets/img/favicon/apple-touch-icon-114x114.png">
+		<link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/font-awesome.css" type="text/css">
+		<link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/bootstrap.css" type="text/css">
+		<link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/animate.css" type="text/css">
+		<link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/waves.css" type="text/css">
+		<link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/layout.css" type="text/css">
+		<link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/components.css" type="text/css">
+		<link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/plugins.css" type="text/css">
+		<link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/common-styles.css" type="text/css">
+		<link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/pages.css" type="text/css">
+		<link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/responsive.css" type="text/css">
+		<link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/matmix-iconfont.css" type="text/css">
+		<link rel="stylesheet" href="<?php echo $base_url; ?>/assets/less/simple-line-icons/css/simple-line-icons.css" type="text/css">
+		<link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/graduateAmerica.css" type="text/css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,400italic,500,500italic" rel="stylesheet" type="text/css">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet" type="text/css">
+		<style>
+			.modal.in .modal-dialog{width: 380px;}
+			.modal-body{min-height: 100px;}
+			.modal-footer{border-top: 0;text-align:center;}
+			.modal-backdrop {display: none;}
+			.table-responsive + .dt-pagination a:hover, .dt-pagination a:focus{color: #FFF !important;}
+			.btn.btn-defaultbtn.btn-info strong{color: #fff !important;}
+			.dt-pagination{margin-bottom: 50px;}
+			.user-td-thumb{width:50px !important;height:50px !important;}
+			/* .bg-hc-border thead > tr > th,bg-hc-border thead > tr:first-child > th{background: #000 !important;} */
+		</style>
+	</head>
+	<body>
+		<div class="bb-alert alert alert-success noty_animated fadeInUp">
+		  <span>Table Callback Demo Content</span>
+		</div>
+		<div class="page-container iconic-view">
+			<!--Leftbar Start Here -->
+			<?php include_once("../includes/sidebar.php"); ?>
+			<div class="page-content">
+				<!--Topbar Start Here -->
+				<?php include_once("../includes/topbar.php"); ?>
+				<!-- Header end -->
+				<div class="main-container">
+					<div class="container-fluid">
+						<div class="page-breadcrumb">
+							<div class="row">
+								<div class="col-md-9">
+									<div class="page-breadcrumb-wrap">
+										<div class="page-breadcrumb-info">
+											<h2 class="breadcrumb-titles">Active Requests </h2>
+										</div>
+									</div>
+								</div>	
+															
+								<div class="col-md-12 availability">
+									<form  method="post"  class="form-horizontal">
+									
+										<div class="form-group">
+										<!--div class="col-xs-3">
+											<?php 
+											$courses = mysqli_query($conn,"select * from tbl_access_courses where id='".$_REQUEST["courses_id"]."'");
+											$cour= mysqli_fetch_assoc($courses);
+											$course_id= $cour['id'];
+											//echo"<pre>";print_r($cour);echo"</pre>";
+											?>
+												<select class="form-control" value="<?php echo $_REQUEST["courses_id"]; ?>" name="courses_id">
+													<option value="" >Please Select Course </option>
+													<?php
+													$charArr = array();												
+													$sqls = mysqli_query($conn,"select * from tbl_request inner join tbl_signup ON tbl_signup.signup_id =tbl_request.learner_id where tbl_request.instructors_id='".$user_id."' AND type=0");
+													while($rows = mysqli_fetch_assoc($sqls)){
+													$courses_ids= $rows['courses_id'];
+													$courses = mysqli_query($conn,"select * from tbl_access_courses where id='".$courses_ids."'");
+													while($cour_arrs = mysqli_fetch_assoc($courses)){
+														$cat_name = strtolower(substr($cour_arrs['title'],0,150));
+														if(!in_array($cat_name,$charArr)){
+												
+																$charArr[] = $cat_name;
+													?>
+													<option <?php if($cour_arrs['id']==$course_id){ echo 'selected'; }?> value="<?php echo $cour_arrs['id']; ?>" ><?php echo $cat_name; ?></option>
+													
+													<?php } ?>
+													<?php } ?>
+													<?php } ?>
+												</select>
+											</div--->
+											<div class="col-xs-3">
+											
+												<input type="text"    name="date" value="<?php echo $_REQUEST["date"]; ?>" placeholder="Please Select Date" class="form-control input-date-picker">
+											</div>
+											
+											<?php 
+											$categor = mysqli_query($conn,"select * from tbl_category where id='".$_REQUEST["category_id"]."'");
+											$cate= mysqli_fetch_assoc($categor);
+											$categor_id= $cate['id'];
+											
+											?>
+											<div class="col-xs-3">
+												<select class="form-control"  value="<?php echo $_REQUEST["category_id"]; ?>"   name="category_id">
+													<option value="">Please Select Category</option>
+													<?php 
+													$charArr = array();
+													$sql2 = mysqli_query($conn,"select * from tbl_request inner join tbl_signup ON tbl_signup.signup_id =tbl_request.learner_id where tbl_request.instructors_id='".$user_id."' AND type=0");
+													while($row2 = mysqli_fetch_assoc($sql2)){
+													$category_id= $row2['category_id'];
+													$categories = mysqli_query($conn,"select * from tbl_category where id='".$category_id."'");
+													while($categorie= mysqli_fetch_assoc($categories)){
+														$cat_name = strtolower(substr($categorie['name'],0,150));
+														if(!in_array($cat_name,$charArr)){
+												
+																$charArr[] = $cat_name;
+													?>
+													<option <?php if($categorie['id']==$categor_id){ echo 'selected'; }?> value="<?php echo $categorie['id']; ?>" ><?php echo $cat_name; ?></option>
+													<?php } ?>
+													<?php } ?>
+													<?php } ?>
+												</select>
+											</div>
+											
+											
+											<div class="col-xs-3">
+												<input type="submit" name="button"   value="Search" class="btn btn-primary" />
+												<a href="<?php echo $site_url; ?>/requests" class="btn btn-default" />Reset</a>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<?php
+							if(isset($_GET['action'])) {
+									if ($_GET['action'] == "accept") {
+									$accept =  $_GET['accept'];
+										$accept=1;
+										$accept_sql = "UPDATE tbl_request SET accept='".$accept."' WHERE id ='".$user_id."'";
+										if ($conn->query($accept_sql) === TRUE) {
+										echo'<script type="text/javascript">   
+										window.location = "requests?status=accept"   
+										</script>';
+										}						
+									}
+								}
+							?>
+							<?php
+								if(isset($_GET['action'])) {
+									if ($_GET['action'] == "reject") {
+										
+										$learner_id = $_GET['learner_id'];	
+										$learner = "SELECT * FROM tbl_signup where signup_id = $learner_id";
+										$result1 = $conn->query($learner);
+										$fatch_stripe = mysqli_fetch_assoc($result1);
+										
+										$signup_fname = $fatch_stripe['signup_fname'];
+										//$signup_email = $fatch_stripe['signup_email'];
+										$signup_email = 'ranjitsingh.ranjit7@gmail.com';
+															
+										
+										$transaction_id= $_GET['transaction_id'];										
+										$instructors_id= $_GET['instructors_id'];										
+										$sql1 = "SELECT * FROM instructors_stripe where user_id = $instructors_id";
+										$result1 = $conn->query($sql1);
+										$fatch_stripe = mysqli_fetch_assoc($result1);
+										$secretkey=$fatch_stripe['secretkey'];
+										$publickkey=$fatch_stripe['publickkey'];
+										
+										require_once('../stripe/stripe/stripe-php/init.php');
+										\Stripe\Stripe::setApiKey($secretkey);
+										
+										try{
+											$refund = \Stripe\Refund::create(array(
+											  "charge" => $transaction_id,
+											));
+											$refundId = $refund->id;
+											
+											$accept =  $_GET['reject'];
+											$reject=2;
+											$accept_sql = "UPDATE tbl_request SET refund_txn_id='".$refundId."' , type='".$reject."' WHERE id ='".$user_id."'";
+											
+											// send email to learner
+											$body = 'Hello '.$signup_fname.'<br>  <br><p> Your requested has been rejected and refunded paid amount by instructor . <br> <br> Thanks <br> Graduateamerica';
+											$subject =  'Graduateamerica :: Rejected and Refunded';
+											// To send HTML mail, the Content-type header must be set
+											$headers  = 'MIME-Version: 1.0' . "\r\n";
+											$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+											// Additional headers 
+											$headers .= 'From: LMS <noreply@graduateamerica.org>' . "\r\n";
+											try{
+												$mailStatus = mail($signup_email, $subject, $body, $headers);	
+											}catch(Exception $e){
+
+											}	
+											
+											
+											if ($conn->query($accept_sql) === TRUE) {
+												echo'<script type="text/javascript">   
+												window.location = "requests?status=reject"   
+												</script>';
+											}	
+											
+										} catch (Exception $e) {
+										
+											echo'<script type="text/javascript">   
+												window.location = "requests?status=rejectmessage&message='.$e->getMessage().'"   
+												</script>';
+										} 
+													
+									}
+								}
+								?>
+							<div class="col-md-12">
+								<?php
+								if( $_GET["status"] == "accept"){
+									echo '<div class="alert alert-success alert-icon-block alert-dismissible" role="alert">
+									<div class="alert-icon">
+									<span class="icon-checkmark-circle"></span> 
+									</div>
+									Request successfully accept.
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span class="fa fa-times"></span></button>
+									</div>';
+									}
+								?><?php
+								if( $_GET["status"] == "rejectmessage"){
+									echo '<div class="alert alert-danger alert-icon-block alert-dismissible" role="alert">
+									<div class="alert-icon">
+									<span class="icon-checkmark-circle"></span> 
+									</div>
+									'.$_GET["message"].'
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span class="fa fa-times"></span></button>
+									</div>';
+								}
+								if( $_GET["status"] == "reject"){
+									echo '<div class="alert alert-danger alert-icon-block alert-dismissible" role="alert">
+									<div class="alert-icon">
+									<span class="icon-checkmark-circle"></span> 
+									</div>
+									Request successfully rejected & refunded.
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span class="fa fa-times"></span></button>
+									</div>';
+									}
+								?>
+								<div class="table-responsive">
+									<table class="table table-hover table-bordered matmix-dt bg-hc-border">
+										<thead>
+											<tr>
+												<th colspan="8">
+													<div class="dt-col-header">Active mentoring requests.<?php
+												/* 	//session_start();
+													$_SESSION['refresh_log'][]='You loaded  this page on'.date('H:i:s');
+													$log = array_reverse($_SESSION['refresh_log']);
+													foreach($log as $log_arr){
+														print_r($log_arr);
+													} */
+													?></div>
+													<p>These are active requests from learners, accept to mentor a lerner.</p>
+												</th>
+									
+											</tr>
+											<tr>
+												
+												<th class="tc-center">Image</th>
+												<th class="tc-center">Name</th>
+												<th class="tc-center">Title</th>
+												<th class="tc-center">Duration/Amount</th>
+												
+												<th class="tc-center">Courses</th>
+												<th class="tc-center">Category</th>
+												<th class="tc-center">Created</th>
+												<th class="tc-center">Action</th>
+											</tr>
+										</thead>
+										<tbody>
+										<?php 
+											if(isset($_GET['page'])){
+											$page = $_GET['page'] ;
+											}else{
+											$page = 1;
+											}
+											$rec_limit = 10;
+											$start_from = ($page - 1) * $rec_limit;
+											if(!empty($_POST['button'])){
+												$created = date('Y-m-d',strtotime($_POST['date']));
+												$id = $_POST['id'];
+												$category_ids = $_POST['category_id'];
+												
+												$sql = mysqli_query($conn,"select * from tbl_request inner join tbl_signup ON tbl_signup.signup_id =tbl_request.learner_id where tbl_request.instructors_id='".$user_id."' AND type=0  AND  DATE(created) LIKE '%{$created}%' AND  category_id LIKE '%{$category_ids}%' order by id desc" ); 
+													
+						
+									
+												
+												 if(!empty($category_ids)){
+													$sql = mysqli_query($conn,"select * from tbl_request inner join tbl_signup ON tbl_signup.signup_id =tbl_request.learner_id where tbl_request.instructors_id='".$user_id."' AND type=0 AND category_id LIKE '%{$category_ids}%' AND  DATE(created) >= '".$created."' order by id desc ");
+													
+												} 
+												
+											}else{
+												$sql = mysqli_query($conn,"select * from tbl_request inner join tbl_signup ON tbl_signup.signup_id =tbl_request.learner_id where tbl_request.instructors_id='".$user_id."' AND type=0 order by id desc LIMIT $start_from, $rec_limit");
+											}
+											while($row = mysqli_fetch_assoc($sql)){
+												
+												$courses_id= $row['courses_id'];
+												$category_id= $row['category_id'];
+												$instructors_id= $row['instructors_id'];
+												$courses = mysqli_query($conn,"select * from tbl_access_courses where id='".$courses_id."'");
+												while($cour_arr = mysqli_fetch_assoc($courses)){
+												$category = mysqli_query($conn,"select * from tbl_category where id='".$category_id."'");
+												while($category_arr = mysqli_fetch_assoc($category)){
+											?>
+											<tr> 
+											<?php if(!empty($row['image'])){?>
+												<td class="tc-center">
+													<a href="#" class="user-td-thumb"><img src="https://graduateamerica.org/images/<?php echo $row['image'];?>" alt="user" style="width:100%;height:100%;object-fit:cover;">
+													</a>
+												</td>
+												<?php }else{?>
+												<td class="tc-center">
+													<a href="#" class="user-td-thumb"><img src="<?php echo $base_url; ?>/assets/images/avatar/adellecharles.jpg" alt="user" style="width:100%;height:100%;object-fit:cover;">
+													</a>
+												</td>
+												<?php }?>											
+												<td class="tc-center"><?php echo $row['signup_fname'].' '. $row['signup_lname']?></td>
+												
+												<td class="tc-center"><?php echo $row['title']; ?></td>
+												<td class="tc-center">
+												
+												Total : <?php echo $row['duration']; ?> hours<br>
+												Pending : 
+												<?php
+												
+												$duration = $row['duration'] * 60;
+												$pending  = $duration - $row['spenttime'] ;
+												echo $pending/60 ;
+												?> Hours <br>
+												Amount : $<?php echo $row['price'] ?>
+												</td>
+												
+												<td class="tc-center"><?php echo $cour_arr['title']; ?></td>
+												<td class="tc-center"><?php echo $category_arr['name']; ?></td>
+												<td class="tc-center"><?php echo date('Y-m-d',strtotime($row['created'])); ?></td>
+												<td class="tc-center">
+													<div class="btn-toolbar" role="toolbar">
+														<div class="btn-group" role="group">
+															<a href="<?php echo $site_url; ?>/requests?accept=<?php echo $row['id']; ?>&action=accept" class="btn btn-info btn-sm" >Accept</a>
+															
+															
+															<a href="<?php echo $site_url; ?>/requests?reject=<?php echo $row['id']; ?>&instructors_id=<?php echo $row['instructors_id']?>&action=reject&transaction_id=<?php echo $row['transaction_id']; ?>&learner_id=<?php echo $row['learner_id']; ?>" onclick="return confirm('Are you sure refund & reject request')" class="btn btn-danger btn-sm" >Reject & Refund</a>
+														</div>
+													</div>
+												</td>
+												
+											</tr>
+											<?php } ?>
+											<?php } ?>
+											<?php } ?>
+										</tbody>
+									</table>
+								</div>
+								<div class="dt-pagination">
+									<nav>
+									<?php 
+										
+										$sql="select * from tbl_request inner join tbl_signup ON tbl_signup.signup_id =tbl_request.learner_id where tbl_request.instructors_id='".$user_id."' AND type=0 ";
+										$result = $conn->query($sql);
+										$totalplans = $result->num_rows;
+										$totalpages = ceil($totalplans/$rec_limit);
+										for($i=1; $i <= $totalpages; $i++){
+										if ($page == $i) {
+										$active = "btn btn-info";
+										}else{
+										$active = " ";
+										}
+										$pagination .= '<a class="btn btn-default'.$active.'" href="'.$site_url.'/requests?page='.$i.'"><strong>'.$i.'</strong></a>';
+										}
+																			
+									?>
+										<ul id="datatable_paginate" class="pagination">
+											<li><script>document.getElementById("datatable_paginate").innerHTML = '<?php echo $pagination; ?>'</script></li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<footer class="footer-container">
+				<div class="container-fluid">
+				<div class="row">
+				<div class="col-md-12 col-sm-6">
+				<div class="footer-right">
+				<span>&copy; 2015 <?php echo $site_name; ?></span>
+				</div>
+				</div>
+				</div>
+				</div>
+				</footer>
+			</div>
+		</div>
+		  
+		<script src="<?php echo $base_url; ?>/assets/js/jquery-1.11.2.min.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/jquery-migrate-1.2.1.min.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/jRespond.min.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/bootstrap.min.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/nav-accordion.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/hoverintent.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/waves.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/switchery.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/jquery.loadmask.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/icheck.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/select2.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/bootstrap-filestyle.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/bootbox.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/animation.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/colorpicker.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/bootstrap-datepicker.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/sweetalert.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/moment.js"></script>
+		<!--CHARTS-->
+		<script src="<?php echo $base_url; ?>/assets/js/smart-resize.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/layout.init.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/matmix.init.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/retina.min.js"></script>
+		<script src="<?php echo $base_url; ?>/assets/js/graduateAmerica.js"></script>
+	</body>
+</html>

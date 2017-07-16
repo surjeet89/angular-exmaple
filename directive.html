@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+	
+	<w3-test-directive></w3-test-directive>
+	
+	<div w3-test-directive></div>
+
+	<!-- <div class="w3-test-directive"></div> -->
+
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.directive('w3TestDirective',function(){
+		return {
+			 //restrict : "C",
+			template : "<h1>Made by a directive!</h1>"
+		};
+	});
+	
+
+</script>
+
+<!-- Element name -->
+<!-- <w3-test-directive></w3-test-directive> -->
+<!-- Attribute -->
+<!-- <div w3-test-directive></div> -->
+<!-- Class -->
+<!-- <div class="w3-test-directive"></div> -->
+
+</body>
+</html>

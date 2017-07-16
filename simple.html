@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+
+<div ng-app=""  ng-init="firstName='John'">
+  <p>Name : <input type="text" ng-model="name"></p>
+  <h1>Hello {{name}}</h1>
+   <p ng-bind="name"></p>
+   
+<p>The name is <span ng-bind="firstName"></span></p>
+
+<p>My first expression: {{ 5 * 5 }}</p>
+</div>
+
+
+<!-- 
+
+Another way to define angular variable 
+
+ng-init to data-ng-init
+
+-->
+</div>
+</body>
+</html>
